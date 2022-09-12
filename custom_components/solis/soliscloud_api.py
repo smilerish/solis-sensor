@@ -20,12 +20,14 @@ from typing import Any
 from aiohttp import ClientError, ClientSession
 import async_timeout
 import yaml
+import os.path
 
 from .ginlong_base import BaseAPI, GinlongData, PortalConfig
 from .ginlong_const import *
 from .soliscloud_const import *
 
 _LOGGER = logging.getLogger(__name__)
+SOLIS_PATH = os.path.dirname(__file__)
 
 # VERSION
 VERSION = '0.1.8'
@@ -130,7 +132,7 @@ class SoliscloudConfig(PortalConfig):
         self._key_id: str = portal_key_id
         self._secret: bytes = portal_secret
         self._workarounds = {} 
-        with open('/config/custom_components/solis/workarounds.yaml', 'r') as file:
+        with open(SOLIS_PATH + '/workarounds.yaml', 'r') as file:
             self._workarounds = yaml.safe_load(file)
             _LOGGER.debug("workarounds: %s", self._workarounds)
 
